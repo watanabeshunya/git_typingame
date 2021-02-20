@@ -57,7 +57,7 @@ const keyDown = e => {
 // const rankCheck = rank => {}; // ランク判定とメッセージ生成処理
 
 // ゲームの終了処理
-const gameOver = id => {
+const gameOver = timerId => {
     clearInterval(timerId);
     alert('ゲーム終了！');
 }; 
