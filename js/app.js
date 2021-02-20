@@ -45,5 +45,7 @@ const createText = () => {
 
 // const timer = () => {}; // タイマー処理
 
-
-// start.addEventListener('click', () => {}); // ゲームスタート時の処理
+// ゲームスタート時の処理
+start.addEventListener('click', () => {
+    createText();
+}); 
