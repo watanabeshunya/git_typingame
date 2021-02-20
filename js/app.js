@@ -56,13 +56,34 @@ const keyDown = e => {
 
 // const rankCheck = rank => {}; // ランク判定とメッセージ生成処理
 
-// const gameOver = id => {}; // ゲームの終了処理
+// ゲームの終了処理
+const gameOver = id => {
+    clearInterval(timerId);
+    alert('ゲーム終了！');
+}; 
 
-// const timer = () => {}; // タイマー処理
+// タイマー処理
+const timer = () => {
+    //タイマー要素を取得
+    let time = 60;
+    const count = document.getElementById('count');
+    const timerId = setInterval(() => {
+        if(time <= 0) gameOver(timerId);
+        count.textContent = time--;
+    }, 1000);
+}; 
 
 // ゲームスタート時の処理
 start.addEventListener('click', () => {
+    //タイマー関数を実行
+    timer();
+
+
+    //ランダムにテキスト生成
     createText();
+
+    //スタートボタンを非表示にする処理
+    start.style.display = 'none';
 
     //キーボードのイベント処理
     document.addEventListener('keydown', keyDown)
