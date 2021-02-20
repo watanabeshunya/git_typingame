@@ -24,6 +24,9 @@ const createText = () => {
     const p = document.getElementById('text');
     const random = Math.floor(Math.random() * textLists.length);
 
+    //p要素を空にする
+    p.textContent = '';
+
     //テキストを１文字ずつ分解して俵祖へ挿入する
     textLists[random].split('').map(value => {
 
