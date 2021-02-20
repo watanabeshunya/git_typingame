@@ -18,6 +18,8 @@ const textLists = [
   'programming'
 ]; // 複数のテキストを格納する配列
 
+ //新しい配列を用意する(createText関数で得た文字をcreateText関数にに持ち込む目的)
+let checkTexts = []; 
 
 //ランダムな文字列を表示する関数を定義
 const createText = () => {
@@ -27,20 +29,30 @@ const createText = () => {
     //p要素を空にする
     p.textContent = '';
 
-    //テキストを１文字ずつ分解して俵祖へ挿入する
-    textLists[random].split('').map(value => {
+    //テキストを１文字ずつ分解して挿入する
+    checkTexts = textLists[random].split('').map(value => {
 
         //span要素を作成(valueという文字列=>spanというHTML要素　の変換)
         const span = document.createElement('span');
         span.textContent = value;
         
         p.appendChild(span);
+
+        //１文字ずつ配列checkTextsに文字列spanを格納していく(mapによって繰り返して全文字)
+        return span;
     })
 }
 
-
-
-// const keyDown = e => {}; // キーイベント＆入力判定処理
+// キーイベント＆入力判定処理
+const keyDown = e => {
+    if(e.key ===checkTexts[0].textContent) {
+        checkTexts[0].className = 'add-color';
+        //配列から１文字を削除
+        checkTexts.shift();
+        //最後まで入力したら新しいテキストを用意する
+        if(!checkTexts.length) createText();
+    }
+}; 
 
 // const rankCheck = rank => {}; // ランク判定とメッセージ生成処理
 
@@ -51,4 +63,7 @@ const createText = () => {
 // ゲームスタート時の処理
 start.addEventListener('click', () => {
     createText();
+
+    //キーボードのイベント処理
+    document.addEventListener('keydown', keyDown)
 }); 
