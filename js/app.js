@@ -21,6 +21,9 @@ const textLists = [
  //新しい配列を用意する(createText関数で得た文字をcreateText関数にに持ち込む目的)
 let checkTexts = []; 
 
+//スコアの初期値を設定する
+let score = 0;
+
 //ランダムな文字列を表示する関数を定義
 const createText = () => {
     const p = document.getElementById('text');
@@ -49,15 +52,39 @@ const keyDown = e => {
         checkTexts[0].className = 'add-color';
         //配列から１文字を削除
         checkTexts.shift();
+
+        //正しい入力の時だけスコアを加算する
+        score++;
+
         //最後まで入力したら新しいテキストを用意する
         if(!checkTexts.length) createText();
     }
 }; 
 
-// const rankCheck = rank => {}; // ランク判定とメッセージ生成処理
+// ランク判定とメッセージ生成処理
+const rankCheck = score => {
+    //テキストを格納する変数を作る
+    let text = '';
+    //スコアに応じて異なるメッセージを変数textに格納
+    if(score < 100) {
+        text = 'あなたのランクはCです。\nBランクまであと' + (100 - score) + '文字です。';
+    } else if(score < 200) {
+        text = 'あなたのランクはBです。\nAランクまであと' + (200 - score) + '文字です。';
+    } else if(score < 300) {
+        text = 'あなたのランクはAです。\nSランクまであと' + (300 - score) + '文字です。';
+    } else {
+        text = 'あなたのランクはSです。\nおめでとうございます！';
+    }
+
+    //textでメッセージを作成し、returnする
+    return score + '文字打てました。\n' + text + '\n【OK】リトライ／【キャンセル】終了';
+}; 
 
 // ゲームの終了処理
 const gameOver = timerId => {
+
+    //スコアの値をrankCheckに渡してダイアログで閣下を表示する
+    const result = confirm(rankCheck(score));
     clearInterval(timerId);
     alert('ゲーム終了！');
 }; 
