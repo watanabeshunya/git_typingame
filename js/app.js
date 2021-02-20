@@ -19,11 +19,23 @@ const textLists = [
 ]; // 複数のテキストを格納する配列
 
 
-function createText() {
-    let text = document.getElementById('text');
-    let randomNumber = Math.floor(Math.random() * textLists.length);
-    text.textContent = textLists[randomNumber];
-}; // ランダムなテキストを画面に表示する
+//ランダムな文字列を表示する関数を定義
+const createText = () => {
+    const p = document.getElementById('text');
+    const random = Math.floor(Math.random() * textLists.length);
+
+    //テキストを１文字ずつ分解して俵祖へ挿入する
+    textLists[random].split('').map(value => {
+
+        //span要素を作成(valueという文字列=>spanというHTML要素　の変換)
+        const span = document.createElement('span');
+        span.textContent = value;
+        
+        p.appendChild(span);
+    })
+}
+
+
 
 // const keyDown = e => {}; // キーイベント＆入力判定処理
 
